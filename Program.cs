@@ -25,9 +25,10 @@
                 Console.Write("> ");
                 string[] argument = Console.ReadLine().Split();
                 string command = argument[0];
-                if (command == "quit") //FIXME Avlsutar inte
+                if (command == "quit")
                 {
                     Console.WriteLine("Goodbye!");
+                    break;
                 }
                 else if (command == "load")
                 {
