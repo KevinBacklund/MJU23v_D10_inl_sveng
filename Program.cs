@@ -117,7 +117,7 @@
                 int index = -1;
                 try
                 {
-                    for (int i = 0; i < dictionary.Count; i++)//FIXME NullReferenceException
+                    for (int i = 0; i < dictionary.Count; i++)
                     {
                         SweEngGloss gloss = dictionary[i];
                         if (gloss.word_swe == swe && gloss.word_eng == eng)
@@ -131,18 +131,24 @@
 
         private static void new_gloss(string[] argument)
         {
-            if (argument.Length == 3)
+            try
             {
-                dictionary.Add(new SweEngGloss(argument[1], argument[2]));
+
+
+                if (argument.Length == 3)
+                {
+                    dictionary.Add(new SweEngGloss(argument[1], argument[2]));
+                }
+                else if (argument.Length == 1) //FIXME om Argument.Length == 2 
+                {
+                    Console.WriteLine("Write word in Swedish: ");
+                    string swe = Console.ReadLine();
+                    Console.Write("Write word in English: ");
+                    string eng = Console.ReadLine();
+                    dictionary.Add(new SweEngGloss(swe, eng));
+                }
             }
-            else if (argument.Length == 1) //FIXME om Argument.Length == 2 
-            {
-                Console.WriteLine("Write word in Swedish: ");
-                string swe = Console.ReadLine();
-                Console.Write("Write word in English: ");
-                string eng = Console.ReadLine();
-                dictionary.Add(new SweEngGloss(swe, eng)); //FIXME NullReferenceException
-            }
+            catch (NullReferenceException) {Console.WriteLine("No list, use load first");}
         }
 
         private static void load(string defaultFile, string[] argument)
