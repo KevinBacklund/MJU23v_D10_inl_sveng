@@ -46,31 +46,7 @@
                 }
                 else if (command == "delete")
                 {
-                    if (argument.Length == 3)
-                    {
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index);
-                    }
-                    else if (argument.Length == 1)
-                    {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string swe = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string eng = Console.ReadLine();
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++)
-                        {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == swe && gloss.word_eng == eng)
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index);
-                    }
+                    delete(argument);
                 }
                 else if (command == "translate")
                 {
@@ -105,19 +81,49 @@
             while (true);
         }
 
+        private static void delete(string[] argument)
+        {
+            if (argument.Length == 3)
+            {
+                int index = -1;
+                for (int i = 0; i < dictionary.Count; i++)
+                {
+                    SweEngGloss gloss = dictionary[i];
+                    if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
+                        index = i;
+                }
+                dictionary.RemoveAt(index);
+            }
+            else if (argument.Length == 1) //FIXME om Argument.Length == 2
+            {
+                Console.WriteLine("Write word in Swedish: ");
+                string swe = Console.ReadLine();
+                Console.Write("Write word in English: ");
+                string eng = Console.ReadLine();
+                int index = -1;
+                for (int i = 0; i < dictionary.Count; i++)//FIXME NullReferenceException fixa genom att skapa dictonary listan utanför load method
+                {
+                    SweEngGloss gloss = dictionary[i];
+                    if (gloss.word_swe == swe && gloss.word_eng == eng)
+                        index = i;
+                }
+                dictionary.RemoveAt(index);
+            }
+        }
+
         private static void new_gloss(string[] argument)
         {
             if (argument.Length == 3)
             {
                 dictionary.Add(new SweEngGloss(argument[1], argument[2]));
             }
-            else if (argument.Length == 1)
+            else if (argument.Length == 1) //FIXME om Argument.Length == 2 
             {
                 Console.WriteLine("Write word in Swedish: ");
                 string swe = Console.ReadLine();
                 Console.Write("Write word in English: ");
                 string eng = Console.ReadLine();
-                dictionary.Add(new SweEngGloss(swe, eng));
+                dictionary.Add(new SweEngGloss(swe, eng)); //FIXME NullReferenceException fixa genom att skapa dictonary listan utanför load method
             }
         }
 
