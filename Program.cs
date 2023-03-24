@@ -115,13 +115,17 @@
                 Console.Write("Write word in English: ");
                 string eng = Console.ReadLine();
                 int index = -1;
-                for (int i = 0; i < dictionary.Count; i++)//FIXME NullReferenceException
+                try
                 {
-                    SweEngGloss gloss = dictionary[i];
-                    if (gloss.word_swe == swe && gloss.word_eng == eng)
-                        index = i;
+                    for (int i = 0; i < dictionary.Count; i++)//FIXME NullReferenceException
+                    {
+                        SweEngGloss gloss = dictionary[i];
+                        if (gloss.word_swe == swe && gloss.word_eng == eng)
+                            index = i;
+                    }
+                    dictionary.RemoveAt(index);
                 }
-                dictionary.RemoveAt(index);
+                catch (NullReferenceException) { Console.WriteLine("No list, use load first"); }
             }
         }
 
