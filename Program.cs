@@ -40,20 +40,9 @@
                         Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
                     }
                 }
-                else if (command == "new") 
+                else if (command == "new")
                 {
-                    if (argument.Length == 3)
-                    {
-                        dictionary.Add(new SweEngGloss(argument[1], argument[2]));
-                    }
-                    else if(argument.Length == 1)
-                    {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string swe = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string eng = Console.ReadLine();
-                        dictionary.Add(new SweEngGloss(swe, eng));
-                    }
+                    new_gloss(argument);
                 }
                 else if (command == "delete")
                 {
@@ -114,6 +103,22 @@
                 }
             }
             while (true);
+        }
+
+        private static void new_gloss(string[] argument)
+        {
+            if (argument.Length == 3)
+            {
+                dictionary.Add(new SweEngGloss(argument[1], argument[2]));
+            }
+            else if (argument.Length == 1)
+            {
+                Console.WriteLine("Write word in Swedish: ");
+                string swe = Console.ReadLine();
+                Console.Write("Write word in English: ");
+                string eng = Console.ReadLine();
+                dictionary.Add(new SweEngGloss(swe, eng));
+            }
         }
 
         private static void load(string defaultFile, string[] argument)
