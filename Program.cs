@@ -35,10 +35,7 @@
                 }
                 else if (command == "list")
                 {
-                    foreach(SweEngGloss gloss in dictionary)
-                    {
-                        Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
-                    }
+                    list();
                 }
                 else if (command == "new")
                 {
@@ -58,6 +55,14 @@
                 }
             }
             while (true);
+        }
+
+        private static void list()
+        {
+            foreach (SweEngGloss gloss in dictionary)//FIXME NullReferenceException
+            {
+                Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+            }
         }
 
         private static void translate(string[] argument)
@@ -106,7 +111,7 @@
                 Console.Write("Write word in English: ");
                 string eng = Console.ReadLine();
                 int index = -1;
-                for (int i = 0; i < dictionary.Count; i++)//FIXME NullReferenceException fixa genom att skapa dictonary listan utanför load method
+                for (int i = 0; i < dictionary.Count; i++)//FIXME NullReferenceException
                 {
                     SweEngGloss gloss = dictionary[i];
                     if (gloss.word_swe == swe && gloss.word_eng == eng)
@@ -128,7 +133,7 @@
                 string swe = Console.ReadLine();
                 Console.Write("Write word in English: ");
                 string eng = Console.ReadLine();
-                dictionary.Add(new SweEngGloss(swe, eng)); //FIXME NullReferenceException fixa genom att skapa dictonary listan utanför load method
+                dictionary.Add(new SweEngGloss(swe, eng)); //FIXME NullReferenceException
             }
         }
 
