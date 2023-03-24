@@ -59,10 +59,14 @@
 
         private static void list()
         {
-            foreach (SweEngGloss gloss in dictionary)//FIXME NullReferenceException
+            try
             {
-                Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                foreach (SweEngGloss gloss in dictionary)
+                {
+                    Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                }
             }
+            catch (NullReferenceException) {Console.WriteLine("No list, use load first");}
         }
 
         private static void translate(string[] argument)
