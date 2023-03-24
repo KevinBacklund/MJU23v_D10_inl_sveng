@@ -31,34 +31,7 @@
                 }
                 else if (command == "load")
                 {
-                    if(argument.Length == 2)
-                    {
-                        using (StreamReader sr = new StreamReader(argument[1]))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
-                    }
-                    else if(argument.Length == 1)
-                    {
-                        using (StreamReader sr = new StreamReader(defaultFile))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
-                    }
+                    load(defaultFile, argument);
                 }
                 else if (command == "list")
                 {
@@ -141,6 +114,38 @@
                 }
             }
             while (true);
+        }
+
+        private static void load(string defaultFile, string[] argument)
+        {
+            if (argument.Length == 2)
+            {
+                using (StreamReader sr = new StreamReader(argument[1])) //FIXME FileNotFoundException
+                {
+                    dictionary = new List<SweEngGloss>(); // Empty it!
+                    string line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        SweEngGloss gloss = new SweEngGloss(line);
+                        dictionary.Add(gloss);
+                        line = sr.ReadLine();
+                    }
+                }
+            }
+            else if (argument.Length == 1)
+            {
+                using (StreamReader sr = new StreamReader(defaultFile))
+                {
+                    dictionary = new List<SweEngGloss>(); // Empty it!
+                    string line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        SweEngGloss gloss = new SweEngGloss(line);
+                        dictionary.Add(gloss);
+                        line = sr.ReadLine();
+                    }
+                }
+            }
         }
     }
 }
